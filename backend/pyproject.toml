@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "backend"
+version = "0.0.1"
+description = "Backend"
+authors = ["fastcode <fast.code.auth@gmail.com>"]
+readme = "README.md"
+packages = [{include = "backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.95.1"}
+uvicorn = "^0.21.1"
+redis = "^4.5.4"
+aiohttp = "^3.8.4"
+setuptools = "^67.7.2"
+python-multipart = "^0.0.6"
+asyncpg = "^0.27.0"
+python-dotenv = "^1.0.0"
+loguru = "^0.7.0"
+alembic = "^1.10.4"
+jinja2 = "^3.1.2"
+faker = "^18.10.1"
+arq = "^0.25.0"
+fake-useragent = "^1.1.3"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

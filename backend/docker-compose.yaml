@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+  redis:
+    container_name: redis
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    restart: always
+    ports:
+      - 6378:6378
+
+  db:
+    container_name: db
+    image: postgres:15-alpine
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: on-failure
+    ports:
+      - "5432:5432"
+
+  arq:
+    container_name: arq
+    build:
+      context: .
+      dockerfile: docker/arq/Dockerfile
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+        - redis
+        - db
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+      - db
+
+volumes:
+  pgdata:
